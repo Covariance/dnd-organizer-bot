@@ -1,0 +1,5 @@
+# default PyCharm folder
+.idea
+
+# PyCache
+__pycache__
