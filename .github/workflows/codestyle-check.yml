@@ -30,14 +30,15 @@ jobs:
       run: |
         $CONDA/bin/conda install pylint
         for file in *.py; do
-          pylint --max-line-length=100 \
+          $CONDA/bin/pylint --max-line-length=100 \
             --disable=invalid-name,missing-docstring,global-statement,too-many-lines,R \
             --enable=simplifiable-if-statement,redefined-variable-type "$file"
         done
     - name: Lint with mypy
       run: |
+        $CONDA/bin/conda install mypy
         for file in *.py; do
-          mypy --ignore-missing-imports "$file"
+          $CONDA/bin/mypy --ignore-missing-imports "$file"
         done
 #    - name: Test with pytest
 #      run: |
