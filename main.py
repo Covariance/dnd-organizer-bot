@@ -73,8 +73,9 @@ def init_commands():
     dice_command_full = 'rolls specified dice. Can be used via \"!\". ' \
                         'Dice rolls syntax: XdY to roll X Y-sided dice. ' \
                         'You can use \"+\" and \"-\" arithmetic operations ' \
-                        'in between of rolls. Constants also can ' \
-                        'be used.\nExamples:\n/roll 1d20 + 1d4 + 5\n!1d20 + 1d4 + 5'
+                        'in between of rolls. Constants also can be used. ' \
+                        'Do not worry about whitespaces - they are ' \
+                        'ignored. \nExamples:\n/roll 1d20 - 1d4 + 5\n! 1d20 - 1d4 + 5'
     commands.append(Command('dice', dice_command_f, dice_command_prompt, dice_command_full))
 
     for command in commands:
