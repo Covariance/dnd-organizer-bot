@@ -1,0 +1,45 @@
+name: Python Package using Conda
+
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  Codestyle check:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: $CONDA/bin/conda env update --file environment.yml --name base
+    - name: Lint with flake8
+      run: |
+        $CONDA/bin/conda install flake8
+        $CONDA/bin/flake8 . --max-line-length 100 --count --statistics
+    - name: Lint with pylint
+      run: |
+        $CONDA/bin/conda install pylint
+        for file in *.py; do
+          pylint --max-line-length=100 \
+            --disable=invalid-name,missing-docstring,global-statement,too-many-lines,R \
+            --enable=simplifiable-if-statement,redefined-variable-type "$file"
+        done
+    - name: Lint with mypy
+      run: |
+        for file in *.py; do
+          mypy --ignore-missing-imports "$file"
+        done
+#    - name: Test with pytest
+#      run: |
+#        conda install pytest
+#        $CONDA/bin/pytest
