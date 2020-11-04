@@ -1,18 +1,5 @@
 import random
 
-"""
- Dice parser parses following grammar:
-
- <seq> = <ws><sign><ws><pool><ws> | <ws><pool><ws>
- <pool> = <entity> | <entity><ws><sign><ws><pool>
- <entity> = <const> | <dice>
- <sign> = '+' | '-'
- <const> = int
- <dice> = 'd' int | int 'd' int
- <ws> = whitespace | ''
-
-"""
-
 
 def parse_expr(expr):
     return DiceParser(expr).parse()
@@ -45,7 +32,7 @@ class DiceParser:
     @staticmethod
     def __process_entity(entity, sign):
         if len(entity) == 0:
-            raise Exception('missing dice or const')
+            raise RuntimeError('missing dice or const')
         dig = 0
         while dig < len(entity) and entity[dig].isdigit():
             dig += 1
@@ -56,10 +43,10 @@ class DiceParser:
             raise Exception('invalid dice format: ' + entity)
         value = int(entity[dig + 1:])
 
-        results = []
-        for i in range(count):
-            results.append(random.randint(1, value))
-        return DiceParser.__signs[sign] * sum(results), sign + '(' + ' + '.join(map(str, results)) + ')'
+        results = [random.randint(1, value) for i in range(count)]
+        return \
+            DiceParser.__signs[sign] * sum(results), \
+            sign + '(' + ' + '.join(map(str, results)) + ')'
 
     def __parse_entity(self, sign):
         if self.__empty():
@@ -77,7 +64,8 @@ class DiceParser:
         self.__skip_ws()
         if not self.__empty():
             if self.__source[self.__pos] not in DiceParser.__signs.keys():
-                raise Exception('unexpected character ' + self.__source[self.__pos] + ' at ' + str(self.__pos))
+                raise Exception('unexpected character ' + self.__source[self.__pos]
+                                + ' at ' + str(self.__pos))
             self.__pos += 1
             self.__parse_pool(self.__source[self.__pos - 1])
 
@@ -93,11 +81,7 @@ class DiceParser:
             self.__parse_pool('+')
 
     def parse(self):
-        try:
-            self.__parse_seq()
-        except Exception as e:
-            return 'Exception occurred: ' + str(e)
-
+        self.__parse_seq()
         sm = 0
         log = ''
         for entity in self.__entities:
