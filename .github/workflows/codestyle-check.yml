@@ -9,7 +9,7 @@ on:
       - '*'
 
 jobs:
-  Codestyle check:
+  codestyle-check:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
