@@ -1,3 +1,5 @@
+# pylint: disable=unused-argument
+
 import sqlite3 as sql
 import json
 

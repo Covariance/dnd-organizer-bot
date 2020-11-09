@@ -98,7 +98,7 @@ def __new_char_f(message):
 
     _cha = __new_char_question_gen(
         None,
-        lambda x: utils.is_msg_stat(x),
+        utils.is_msg_stat,
         lambda x: char['stats'].update({'CHA': int(x.text)}),
         None,
         "Invalid input, try again.",
@@ -108,7 +108,7 @@ def __new_char_f(message):
 
     _wis_cha = __new_char_question_gen(
         "What is your character's CHArisma?",
-        lambda x: utils.is_msg_stat(x),
+        utils.is_msg_stat,
         lambda x: char['stats'].update({'WIS': int(x.text)}),
         _cha,
         "Invalid input, try again."
@@ -116,7 +116,7 @@ def __new_char_f(message):
 
     _int_wis = __new_char_question_gen(
         "What is your character's WISdom?",
-        lambda x: utils.is_msg_stat(x),
+        utils.is_msg_stat,
         lambda x: char['stats'].update({'INT': int(x.text)}),
         _wis_cha,
         "Invalid input, try again."
@@ -124,7 +124,7 @@ def __new_char_f(message):
 
     _con_int = __new_char_question_gen(
         "What is your character's INTelligence?",
-        lambda x: utils.is_msg_stat(x),
+        utils.is_msg_stat,
         lambda x: char['stats'].update({'CON': int(x.text)}),
         _int_wis,
         "Invalid input, try again."
@@ -132,7 +132,7 @@ def __new_char_f(message):
 
     _dex_con = __new_char_question_gen(
         "What is your character's CONstitution?",
-        lambda x: utils.is_msg_stat(x),
+        utils.is_msg_stat,
         lambda x: char['stats'].update({'DEX': int(x.text)}),
         _con_int,
         "Invalid input, try again."
@@ -140,7 +140,7 @@ def __new_char_f(message):
 
     _str_dex = __new_char_question_gen(
         "What is your character's DEXterity?",
-        lambda x: utils.is_msg_stat(x),
+        utils.is_msg_stat,
         lambda x: char['stats'].update({'STR': int(x.text)}),
         _dex_con,
         "Invalid input, try again."
