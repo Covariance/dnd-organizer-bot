@@ -1,7 +1,7 @@
 # dnd-organizer-bot
 Telegram bot for everything related to Dungeons&amp;Dragons - from dice rolling to character creation.
 
-It is currently hosted on [@dnd_organizer_bot](t.me/dnd_organizer_bot).
+It is currently hosted on [@dnd_organizer_bot](https://t.me/dnd_organizer_bot).
 
 ## Supported commands
 - /start - prints welcoming message.
